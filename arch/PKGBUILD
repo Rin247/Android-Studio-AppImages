@@ -1,0 +1,26 @@
+# Android Studio AppImages - Arch package
+
+# Maintainer: Rin <r@example.com>
+
+pkgname=android-studio
+pkgver=1.0
+pkgrel=1
+pkgdesc="Android Studio packaged from upstream tarball"
+arch=(x86_64)
+url="https://developer.android.com/studio"
+license=(custom)
+source=("https://redirector.gvt1.com/edgedl/android/studio/ide-zips/${pkgver}/android-studio-${pkgver}-linux.tar.gz")
+sha256sums=('SKIP')
+
+package() {
+  mkdir -p "$pkgdir/opt/android-studio"
+  tar -xzf "${srcdir}/android-studio-${pkgver}-linux.tar.gz" -C "$pkgdir/opt/android-studio" --strip-components=1
+  cat > "$pkgdir/usr/share/applications/android-studio.desktop" <<'EOF'
+[Desktop Entry]
+Name=Android Studio
+Exec=/opt/android-studio/bin/studio.sh
+Icon=/opt/android-studio/bin/studio.png
+Type=Application
+Categories=Development;IDE;
+EOF
+}
