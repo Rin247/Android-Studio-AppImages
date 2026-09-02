@@ -13,7 +13,7 @@ if [ "${X_FORCE_BUILD}" == "true" ]; then
 fi
 
 tag_name=$1
-repo="zyrouge/android-studio-appimages"
+repo="Rin247/android-studio-appimages"
 
 api_url="https://api.github.com/repos/${repo}/releases/tags/${tag_name}"
 data=$(curl --fail -s -A "${curl_ua}" "${api_url}")

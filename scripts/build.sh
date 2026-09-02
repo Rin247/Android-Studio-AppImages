@@ -20,8 +20,10 @@ apprun_template_file="${templates_dir}/AppRun"
 
 app_version=$1
 app_release=$2
+tarball_filename=$3
 echo "Android Studio Version: ${app_version}"
 echo "Android Studio Release: ${app_release}"
+echo "Android Studio Tarball: ${tarball_filename}"
 
 app_title="Android Studio"
 app_name="android-studio"
@@ -79,8 +81,8 @@ else
 fi
 
 app_dir="${artifacts_dir}/${app_name}.AppDir"
-archive_file="${artifacts_dir}/android-studio-${app_version}-linux.tar.gz"
-download_url="https://redirector.gvt1.com/edgedl/android/studio/ide-zips/${app_version}/android-studio-${app_version}-linux.tar.gz"
+archive_file="${artifacts_dir}/${tarball_filename}"
+download_url="https://redirector.gvt1.com/edgedl/android/studio/ide-zips/${app_version}/${tarball_filename}"
 
 if ! [ -d "${app_dir}" ]; then
     if ! [ -f "${archive_file}" ]; then
