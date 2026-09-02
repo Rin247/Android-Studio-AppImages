@@ -1,8 +1,8 @@
 # Android Studio AppImages
 
-[![Latest](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fzyrouge%2Fandroid-studio-appimages%2Fdist-badges%2Fbadge-latest.json)](https://github.com/zyrouge/android-studio-appimages)
-[![Release](https://github.com/zyrouge/android-studio-appimages/actions/workflows/release.yml/badge.svg)](https://github.com/zyrouge/android-studio-appimages/actions/workflows/release.yml)
-[![Badges](https://github.com/zyrouge/android-studio-appimages/actions/workflows/badges.yml/badge.svg)](https://github.com/zyrouge/android-studio-appimages/actions/workflows/badges.yml)
+[![Latest](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FRin247%2Fandroid-studio-appimages%2Fdist-badges%2Fbadge-latest.json)](https://github.com/Rin247/android-studio-appimages)
+[![Release](https://github.com/Rin247/android-studio-appimages/actions/workflows/release.yml/badge.svg)](https://github.com/Rin247/android-studio-appimages/actions/workflows/release.yml)
+[![Badges](https://github.com/Rin247/android-studio-appimages/actions/workflows/badges.yml/badge.svg)](https://github.com/Rin247/android-studio-appimages/actions/workflows/badges.yml)
 
 Packages [Android Studio](https://developer.android.com/studio) as AppImages.
 
@@ -19,7 +19,7 @@ AppImages are directly created from `.tar.gz` builds and are not decompiled or m
 This command requires [Pho](https://github.com/zyrouge/pho) to be installed.
 
 ```bash
-pho install github --id android-studio zyrouge/android-studio-appimages
+pho install github --id android-studio Rin247/android-studio-appimages
 ```
 
 ### Manual
@@ -47,6 +47,4 @@ makepkg -si
 
 ## Building locally
 
-There are helper scripts in `scripts/` that can build AppImages in a containerized environment. The `scripts/build-podman.sh` script uses an Ubuntu 22.04 container by default to produce AppImages. See the scripts for details.
-
-
+There are helper scripts in `scripts/` that build AppImages in a containerized environment. The `scripts/build-podman.sh` script uses an Ubuntu 22.04 container by default to produce AppImages. See the scripts for details.
