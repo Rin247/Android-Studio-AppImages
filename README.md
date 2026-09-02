@@ -1,13 +1,12 @@
 # Android Studio AppImages
 
 [![Latest](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fzyrouge%2Fandroid-studio-appimages%2Fdist-badges%2Fbadge-latest.json)](https://github.com/zyrouge/android-studio-appimages)
-[![Latest (Pre-release)](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fzyrouge%2Fandroid-studio-appimages%2Fdist-badges%2Fbadge-prerelease.json)](https://github.com/zyrouge/android-studio-appimages)
 [![Release](https://github.com/zyrouge/android-studio-appimages/actions/workflows/release.yml/badge.svg)](https://github.com/zyrouge/android-studio-appimages/actions/workflows/release.yml)
 [![Badges](https://github.com/zyrouge/android-studio-appimages/actions/workflows/badges.yml/badge.svg)](https://github.com/zyrouge/android-studio-appimages/actions/workflows/badges.yml)
 
-Packages [Android Studio](https://developer.android.com/studio) and [Android Studio Preview](https://developer.android.com/studio/preview) as AppImages.
+Packages [Android Studio](https://developer.android.com/studio) as AppImages.
 
-AppImages are directly created from `.tar.gz` builds and are not decompiled or modified. AppImages are compiled in Ubuntu 22.04 (minimum). Latest releases contain stable version and pre-releases contain beta builds.
+AppImages are directly created from `.tar.gz` builds and are not decompiled or modified. AppImages are compiled in Ubuntu 22.04 (minimum). Only stable, release-ready builds are packaged — preview, beta, canary and release-candidate (RC) builds are intentionally skipped.
 
 ## Supported Builds
 
@@ -20,11 +19,7 @@ AppImages are directly created from `.tar.gz` builds and are not decompiled or m
 This command requires [Pho](https://github.com/zyrouge/pho) to be installed.
 
 ```bash
-# stable
 pho install github --id android-studio zyrouge/android-studio-appimages
-
-# beta
-pho install github --release prerelease --id android-studio zyrouge/android-studio-appimages
 ```
 
 ### Manual
@@ -33,7 +28,7 @@ Can be directly downloaded from Github Releases and integrated using tools like 
 
 ## Minimum distribution support
 
-This project builds AppImages using an Ubuntu 22.04 (jammy) chroot/container as the minimum supported build environment. The CI matrix includes Ubuntu 22.04 and newer (24.04, 26.04) to ensure the produced AppImages remain compatible with modern distributions. Support for older distributions (Ubuntu 20.04 and earlier) has been removed.
+This project builds AppImages using an Ubuntu 22.04 (jammy) chroot/container as the minimum supported build environment. Support for older distributions (Ubuntu 20.04 and earlier) has been removed.
 
 ## Arch Linux
 

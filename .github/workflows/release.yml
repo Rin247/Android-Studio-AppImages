@@ -11,16 +11,6 @@ on:
                 type: boolean
                 required: true
                 default: false
-            build-stable:
-                description: Should build stable?
-                type: boolean
-                required: true
-                default: true
-            build-beta:
-                description: Should build beta?
-                type: boolean
-                required: true
-                default: true
 
 permissions:
     contents: write
@@ -29,14 +19,9 @@ jobs:
     release:
         runs-on: ubuntu-latest
         continue-on-error: true
-        strategy:
-            matrix:
-                version: [stable, beta]
         env:
             X_APP_VERSION: ""
-            X_APP_RELEASE: ${{ matrix.version }}
             X_TAG_NAME: ""
-            X_BUILD_ENABLED: ""
             X_REQUIRES_BUILD: ""
         steps:
             - uses: actions/checkout@v4
@@ -48,30 +33,21 @@ jobs:
 
             - name: 🔢 Get version
               run: |
-                  version=$(./scripts/version-$X_APP_RELEASE.sh | xargs)
+                  version=$(./scripts/version-stable.sh | xargs)
                   echo "X_APP_VERSION=${version}" >> $GITHUB_ENV
                   echo "X_TAG_NAME=v${version}" >> $GITHUB_ENV
-
-            - name: 🔐 Is build is enabled?
-              run: |
-                  build_enabled=$(./scripts/is-build-enabled.sh | xargs)
-                  echo "X_BUILD_ENABLED=${build_enabled}" >> $GITHUB_ENV
-              env:
-                  X_BUILD_STABLE: ${{ inputs.build-stable }}
-                  X_BUILD_BETA: ${{ inputs.build-beta }}
 
             - name: ♻️ Check for existing releases
               run: |
                   requires_build=$(./scripts/requires-build.sh $X_TAG_NAME | xargs)
                   echo "X_REQUIRES_BUILD=${requires_build}" >> $GITHUB_ENV
-              if: ${{ env.X_BUILD_ENABLED == 'yes' }}
               env:
                   X_FORCE_BUILD: ${{ inputs.force }}
 
             - name: 🔨 Build executables
               run: |
                   find ./scripts -type f -name "*.sh" -exec chmod +x {} \;
-                  ./scripts/build-podman.sh $X_APP_VERSION $X_APP_RELEASE
+                  ./scripts/build-podman.sh $X_APP_VERSION
               if: ${{ env.X_REQUIRES_BUILD == 'yes' }}
 
             - name: 🚀 Upload executables
@@ -87,7 +63,6 @@ jobs:
                   allowUpdates: true
                   replacesArtifacts: true
                   makeLatest: true
-                  prerelease: ${{ env.X_APP_RELEASE == 'beta' }}
 
     generate-badge:
         needs: [release]

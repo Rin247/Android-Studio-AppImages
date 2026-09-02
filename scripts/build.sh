@@ -19,31 +19,12 @@ desktop_template_file="${templates_dir}/android-studio.desktop"
 apprun_template_file="${templates_dir}/AppRun"
 
 app_version=$1
-app_release=$2
-tarball_filename=$3
+tarball_filename=$2
 echo "Android Studio Version: ${app_version}"
-echo "Android Studio Release: ${app_release}"
 echo "Android Studio Tarball: ${tarball_filename}"
 
 app_title="Android Studio"
 app_name="android-studio"
-
-case "${app_release}" in
-"stable")
-    app_title="Android Studio"
-    app_name="android-studio"
-    ;;
-
-"beta")
-    app_title="Android Studio (Beta)"
-    app_name="android-studio-beta"
-    ;;
-
-*)
-    echo "Unknown release type: ${app_release}"
-    exit 1
-    ;;
-esac
 
 # Tools required in the build environment
 reqs=(curl tar convert file)
