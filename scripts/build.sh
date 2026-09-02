@@ -2,6 +2,11 @@
 
 set -eu
 
+# Minimum supported build distro: Ubuntu 22.04 (jammy)
+# This script assembles an AppDir from the Android Studio tarball and
+# uses appimagetool to create an AppImage. It is expected to run inside a
+# clean Ubuntu 22.04+ container/chroot to produce portable AppImages.
+
 curl_ua="Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/118.0"
 
 self=$(readlink -f "$0")
@@ -37,6 +42,16 @@ case "${app_release}" in
     exit 1
     ;;
 esac
+
+# Tools required in the build environment
+reqs=(curl tar convert file)
+for cmd in "${reqs[@]}"; do
+    if ! command -v ${cmd} >/dev/null 2>&1; then
+        echo "error: required command '${cmd}' not found in PATH"
+        echo "Please install it in the build environment (this script expects Ubuntu 22.04+)."
+        exit 1
+    fi
+done
 
 appimagetool_path="${artifacts_dir}/appimagetool.AppImage"
 appimagetool_app_dir="${artifacts_dir}/appimagetool.AppDir"
@@ -84,17 +99,22 @@ else
     echo "Skipping AppDir creation..."
 fi
 
-d_icon="${app_dir}/bin/studio.png"
-d_icon_vector="${app_dir}/bin/studio.svg"
+# Copy icons and desktop file
 
-cp "${d_icon}" "${app_dir}/${app_name}.png"
-cp "${d_icon_vector}" "${app_dir}/${app_name}.svg"
-convert "${d_icon}" -resize 256x256 "${app_dir}/.DirIcon"
-for x in "256x256" "512x512" "1024x1024"; do
-    icon_dir="${app_dir}/usr/share/icons/hicolor/${x}/apps"
-    mkdir -p "${icon_dir}"
-    convert "${d_icon}" -resize "${x}" "${icon_dir}/${app_name}.png"
-done
+if [ -f "${app_dir}/bin/studio.png" ]; then
+    d_icon="${app_dir}/bin/studio.png"
+    d_icon_vector="${app_dir}/bin/studio.svg"
+
+    cp "${d_icon}" "${app_dir}/${app_name}.png" || true
+    cp "${d_icon_vector}" "${app_dir}/${app_name}.svg" || true
+    convert "${d_icon}" -resize 256x256 "${app_dir}/.DirIcon" || true
+    for x in "256x256" "512x512" "1024x1024"; do
+        icon_dir="${app_dir}/usr/share/icons/hicolor/${x}/apps"
+        mkdir -p "${icon_dir}"
+        convert "${d_icon}" -resize "${x}" "${icon_dir}/${app_name}.png" || true
+    done
+fi
+
 desktop_content=$(cat "${desktop_template_file}")
 desktop_content="${desktop_content//@@TITLE@@/${app_title}}"
 desktop_content="${desktop_content//@@NAME@@/${app_name}}"
@@ -102,11 +122,14 @@ echo "${desktop_content}" >"${app_dir}/${app_name}.desktop"
 cp "${apprun_template_file}" "${app_dir}/AppRun"
 echo "Initialized ${app_dir}"
 
+# Build the AppImage
 appimage_arch="x86_64"
 appimage_file="${dist_dir}/${app_name}-${app_version}-${appimage_arch}.AppImage"
 
 echo "Building ${app_dir}"
 mkdir -p "${dist_dir}"
+# Ensure ARCH environment is set for appimagetool
 ARCH=$appimage_arch "${appimagetool}" "${app_dir}" "${appimage_file}"
 chmod +x "${appimage_file}"
+
 echo "Created ${appimage_file}"
