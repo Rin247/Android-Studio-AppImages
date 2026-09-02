@@ -24,18 +24,7 @@ This project builds AppImages using an Ubuntu 22.04 (jammy) chroot/container as 
 
 ## Arch Linux
 
-Two options are provided for Arch users:
-
-- Run the distributed AppImage directly on Arch. AppImages produced by this project bundle required libraries so they should run on Arch Linux; use AppImageLauncher or run the file directly (make it executable and execute).
-- Build a native Arch package using the provided PKGBUILD (see `arch/PKGBUILD`). The PKGBUILD downloads the upstream Android Studio tarball and installs it under `/opt/android-studio` so you can manage it with your package manager.
-
-To build the Arch package locally:
-
-```bash
-git clone https://github.com/Rin247/android-studio-appimages.git
-cd android-studio-appimages/arch
-makepkg -si
-```
+Run the distributed AppImage directly on Arch. AppImages produced by this project bundle required libraries so they should run on Arch Linux; use AppImageLauncher or run the file directly (make it executable and execute). For a packaged version, use the [`android-studio`](https://aur.archlinux.org/packages/android-studio) package from the AUR.
 
 ## Building locally
 
