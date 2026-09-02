@@ -14,17 +14,17 @@ AppImages are directly created from `.tar.gz` builds and are not decompiled or m
 
 ## Installation
 
+### Manual
+
+Can be directly downloaded from Github Releases and integrated using tools like AppImageLauncher.
+
 ### Pho
 
-This command requires [Pho](https://github.com/zyrouge/pho) to be installed.
+[Pho](https://github.com/zyrouge/pho) is a cross-distro package manager script that can install this AppImage:
 
 ```bash
 pho install github --id android-studio Rin247/android-studio-appimages
 ```
-
-### Manual
-
-Can be directly downloaded from Github Releases and integrated using tools like AppImageLauncher.
 
 ## Minimum distribution support
 
