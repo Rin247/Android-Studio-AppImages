@@ -1,8 +1,6 @@
 # Android Studio AppImages
 
-[![Latest](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FRin247%2Fandroid-studio-appimages%2Fdist-badges%2Fbadge-latest.json)](https://github.com/Rin247/android-studio-appimages)
 [![Release](https://github.com/Rin247/android-studio-appimages/actions/workflows/release.yml/badge.svg)](https://github.com/Rin247/android-studio-appimages/actions/workflows/release.yml)
-[![Badges](https://github.com/Rin247/android-studio-appimages/actions/workflows/badges.yml/badge.svg)](https://github.com/Rin247/android-studio-appimages/actions/workflows/badges.yml)
 
 Packages [Android Studio](https://developer.android.com/studio) as AppImages.
 
